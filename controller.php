@@ -1,4 +1,4 @@
 <?php
-require "model.php";
-include "view.php";
+    require "model.php";
+    include "view.php";
 ?>

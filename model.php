@@ -18,13 +18,15 @@
             }
             return $this->db;
         }
-        public function getInfo($value = null)
+        
+        public function getInfo($search = null)
         {
-            if ($value) {
-      
+            //Si getInfo recibe los parametros de $_GET entrará en el pime IF mostrando solo la información del alumno en cuestión
+            //sino, irá al else mostrando la información total de la tabla, sin criterio
+            if ($search) {
                 $sql = "SELECT alum_dni, alum_nombre, alum_apellido1, alum_apellido2, alum_nota FROM t_alumnos WHERE alum_nombre = ?";
                 $result = $this->db->prepare($sql);
-                $result->execute(array($value));
+                $result->execute(array($search));
                     $output = "";
                 foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $row) {
                     $output .= "<td>" . $row["alum_nombre"] . "</td>";
@@ -38,7 +40,6 @@
                     }
                     $output .= "</tr>";
                 }
-    
             } else {
                     $query = "SELECT alum_dni, alum_nombre, alum_apellido1, alum_apellido2, alum_nota FROM t_alumnos";
                     $result = $this->db->prepare($query);
